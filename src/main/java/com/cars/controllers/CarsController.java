@@ -3,6 +3,8 @@ package com.cars.controllers;
 import com.cars.entities.Car;
 import com.cars.servicies.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +17,18 @@ public class CarsController {
     private CarService carService;
 
     @GetMapping()
-    public List<Car> getAllCars() {
-        return carService.getAll();
+    public ResponseEntity<List<Car>> getAllCars() {
+        return new ResponseEntity<>(carService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Car getCarById(@PathVariable("id") Long id){
-        return carService.getById(id);
+    public ResponseEntity<Car> getCarById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(carService.getById(id), HttpStatus.OK);
     }
 
     @GetMapping("/type/{type}")
-    public Car getCarByType(@PathVariable("type") String type) {
-        return carService.getByType(type);
+    public List<Car> getCarsByType(@PathVariable("type") String type) {
+        return carService.getAllByType(type);
     }
 
     @PostMapping()

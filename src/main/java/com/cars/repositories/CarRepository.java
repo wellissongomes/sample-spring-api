@@ -3,6 +3,8 @@ package com.cars.repositories;
 import com.cars.entities.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CarRepository extends JpaRepository<Car, Long> {
-    Car findByType(String type);
+    List<Car> findByType(String type);
 }
