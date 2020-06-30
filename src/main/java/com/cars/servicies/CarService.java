@@ -23,13 +23,14 @@ public class CarService {
         return carsDTO;
     }
 
-    public Car getById(Long id) {
-        Optional<Car> optionalCar = carRepository.findById(id);
+    public CarDTO getById(Long id) {
+        Optional<CarDTO> optionalCar = carRepository.findById(id)
+                                        .map(car -> new CarDTO(car));
         if(!optionalCar.isPresent()) {
             throw new ObjectNotFoundException("Carro não encontrado.");
         }
 
-        Car car = optionalCar.get();
+        CarDTO car = optionalCar.get();
         return car;
     }
 
@@ -43,17 +44,21 @@ public class CarService {
         return carsDTO;
     }
 
-    public Car save(Car car) {
-        return carRepository.save(car);
+    public CarDTO save(Car car) {
+        return new CarDTO(carRepository.save(car));
     }
 
-    public Car update(Long id, Car car) {
-        Car oldCar = getById(id);
-
+    public CarDTO update(Long id, Car car) {
+        Optional<Car> optionalCar = carRepository.findById(id);
+        if(!optionalCar.isPresent()) {
+            throw new ObjectNotFoundException("Carro não encontrado.");
+        }
+        Car oldCar = optionalCar.get();
         oldCar.setName(car.getName());
         oldCar.setType(car.getType());
+        carRepository.save(oldCar);
 
-        return carRepository.save(oldCar);
+        return new CarDTO(oldCar);
     }
 
     public void deleteById(Long id) {

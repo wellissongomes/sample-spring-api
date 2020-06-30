@@ -23,7 +23,7 @@ public class CarsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Car> getCarById(@PathVariable("id") Long id){
+    public ResponseEntity<CarDTO> getCarById(@PathVariable("id") Long id){
         return new ResponseEntity<>(carService.getById(id), HttpStatus.OK);
     }
 
@@ -33,12 +33,12 @@ public class CarsController {
     }
 
     @PostMapping()
-    public Car saveCar(@RequestBody Car car) {
+    public CarDTO saveCar(@RequestBody Car car) {
         return carService.save(car);
     }
 
     @PutMapping("/{id}")
-    public Car updateCar(@PathVariable("id") Long id, @RequestBody Car car) {
+    public CarDTO updateCar(@PathVariable("id") Long id, @RequestBody Car car) {
         return carService.update(id, car);
     }
 
