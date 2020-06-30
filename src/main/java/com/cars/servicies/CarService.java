@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CarService<T> {
+public class CarService {
     @Autowired
     private CarRepository carRepository;
 
