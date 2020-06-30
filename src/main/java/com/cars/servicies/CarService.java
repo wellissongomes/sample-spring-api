@@ -1,5 +1,6 @@
 package com.cars.servicies;
 
+import com.cars.dto.CarDTO;
 import com.cars.entities.Car;
 import com.cars.exceptions.NoContentException;
 import com.cars.exceptions.ObjectNotFoundException;
@@ -9,14 +10,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class CarService {
+public class CarService<T> {
     @Autowired
     private CarRepository carRepository;
 
-    public List<Car> getAll() {
-        return carRepository.findAll();
+    public List<CarDTO> getAll() {
+        List<Car> cars = carRepository.findAll();
+        List<CarDTO> carsDTO = listCarToListCarDTO(cars);
+        return carsDTO;
     }
 
     public Car getById(Long id) {
@@ -29,13 +33,14 @@ public class CarService {
         return car;
     }
 
-    public List<Car> getAllByType(String type) {
+    public List<CarDTO> getAllByType(String type) {
         List<Car> cars = carRepository.findByType(type);
         if(cars.isEmpty()) {
             throw new NoContentException();
         }
 
-        return cars;
+        List<CarDTO> carsDTO = listCarToListCarDTO(cars);
+        return carsDTO;
     }
 
     public Car save(Car car) {
@@ -53,5 +58,11 @@ public class CarService {
 
     public void deleteById(Long id) {
         carRepository.deleteById(id);
+    }
+
+    private List<CarDTO> listCarToListCarDTO(List<Car> cars){
+        return cars.stream()
+                .map(car -> new CarDTO(car))
+                .collect(Collectors.toList());
     }
 }

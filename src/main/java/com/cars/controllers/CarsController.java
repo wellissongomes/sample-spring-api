@@ -1,5 +1,6 @@
 package com.cars.controllers;
 
+import com.cars.dto.CarDTO;
 import com.cars.entities.Car;
 import com.cars.servicies.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CarsController {
     private CarService carService;
 
     @GetMapping()
-    public ResponseEntity<List<Car>> getAllCars() {
+    public ResponseEntity<List<CarDTO>> getAllCars() {
         return new ResponseEntity<>(carService.getAll(), HttpStatus.OK);
     }
 
@@ -27,7 +28,7 @@ public class CarsController {
     }
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<Car>> getCarsByType(@PathVariable("type") String type) {
+    public ResponseEntity<List<CarDTO>> getCarsByType(@PathVariable("type") String type) {
         return new ResponseEntity<>(carService.getAllByType(type), HttpStatus.OK);
     }
 
