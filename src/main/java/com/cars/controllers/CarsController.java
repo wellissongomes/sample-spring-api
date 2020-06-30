@@ -27,8 +27,8 @@ public class CarsController {
     }
 
     @GetMapping("/type/{type}")
-    public List<Car> getCarsByType(@PathVariable("type") String type) {
-        return carService.getAllByType(type);
+    public ResponseEntity<List<Car>> getCarsByType(@PathVariable("type") String type) {
+        return new ResponseEntity<>(carService.getAllByType(type), HttpStatus.OK);
     }
 
     @PostMapping()
