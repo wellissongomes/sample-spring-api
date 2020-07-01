@@ -46,10 +46,6 @@ public class CarService {
     }
 
     public CarDTO save(Car car) {
-        Optional<Car> optionalCar = carRepository.findById(car.getId());
-        if(optionalCar.isPresent()) {
-            throw new BadRequesException();
-        }
         return new CarDTO(carRepository.save(car));
     }
 
