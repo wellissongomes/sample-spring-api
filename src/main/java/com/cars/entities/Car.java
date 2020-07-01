@@ -1,26 +1,18 @@
 package com.cars.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Car {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
     private String name;
     private String type;
 
     public Car() {};
-
-    public Car(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
 
     public Long getId() {
         return id;
