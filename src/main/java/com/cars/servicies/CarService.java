@@ -2,6 +2,7 @@ package com.cars.servicies;
 
 import com.cars.dto.CarDTO;
 import com.cars.entities.Car;
+import com.cars.exceptions.BadRequesException;
 import com.cars.exceptions.NoContentException;
 import com.cars.exceptions.ObjectNotFoundException;
 import com.cars.repositories.CarRepository;
@@ -45,6 +46,10 @@ public class CarService {
     }
 
     public CarDTO save(Car car) {
+        Optional<Car> optionalCar = carRepository.findById(car.getId());
+        if(optionalCar.isPresent()) {
+            throw new BadRequesException();
+        }
         return new CarDTO(carRepository.save(car));
     }
 
@@ -62,6 +67,10 @@ public class CarService {
     }
 
     public void deleteById(Long id) {
+        Optional<Car> optionalCar = carRepository.findById(id);
+        if(!optionalCar.isPresent()) {
+            throw new ObjectNotFoundException("Carro não encontrado.");
+        }
         carRepository.deleteById(id);
     }
 

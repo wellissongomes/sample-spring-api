@@ -33,13 +33,13 @@ public class CarsController {
     }
 
     @PostMapping()
-    public CarDTO saveCar(@RequestBody Car car) {
-        return carService.save(car);
+    public ResponseEntity<CarDTO> saveCar(@RequestBody Car car) {
+        return new ResponseEntity(carService.save(car), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public CarDTO updateCar(@PathVariable("id") Long id, @RequestBody Car car) {
-        return carService.update(id, car);
+    public ResponseEntity<CarDTO> updateCar(@PathVariable("id") Long id, @RequestBody Car car) {
+        return new ResponseEntity<>(carService.update(id, car), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
