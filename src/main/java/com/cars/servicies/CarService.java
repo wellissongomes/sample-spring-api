@@ -2,7 +2,6 @@ package com.cars.servicies;
 
 import com.cars.dto.CarDTO;
 import com.cars.entities.Car;
-import com.cars.exceptions.BadRequesException;
 import com.cars.exceptions.NoContentException;
 import com.cars.exceptions.ObjectNotFoundException;
 import com.cars.repositories.CarRepository;
