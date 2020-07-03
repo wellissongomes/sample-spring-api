@@ -30,20 +30,6 @@ class CarServiceTest {
 
         assertEquals(c.getName(), "FUSQUINHA DA MASSA");
         assertEquals(c.getType(), "esportivo");
-
-        // pra não ficar no db (TODO: fazer um bd fake pra evitar isso)
-        carService.deleteById(id);
-        try {
-            carService.getById(id);
-            fail("não deveria existir mais o carro");
-        }catch (ObjectNotFoundException onfe) {
-            // ok
-        }
-    }
-
-    @Test
-    void getCar() {
-
     }
 }
 
