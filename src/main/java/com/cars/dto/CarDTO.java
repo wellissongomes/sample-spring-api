@@ -7,6 +7,8 @@ public class CarDTO {
     private String name;
     private String type;
 
+    public CarDTO() {}
+
     public CarDTO(Car car) {
         this.id = car.getId();
         this.name = car.getName();
